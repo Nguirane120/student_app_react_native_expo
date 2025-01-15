@@ -1,64 +1,50 @@
-import NextClass from '@/components/NextClass';
-import SearchInput from '@/components/SearchInput';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { Image, StyleSheet, Platform, View, Text, TextInput } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-const pp = require("../../assets/images/pp.jpg");
-
+import EventList from "@/components/EventList";
+import Header from "@/components/Header";
+import NextClass from "@/components/NextClass";
+import SearchInput from "@/components/SearchInput";
+import { eventList } from "@/fakeData";
+import { Fragment } from "react";
+import { StyleSheet, View, FlatList, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   return (
-      <View style={styles.container}>
-          <SafeAreaView>
-          <View style={styles.header}>
-            <View style={{flexDirection:"row", }}>
-              <Image source={pp}  style={{ width:50, height:45, borderRadius:15}}/>
-              <View style={{ paddingLeft:10}}>
-              <Text style={{ fontWeight:"bold"}}>Alioune Badara</Text>
-              <Text style={{ fontWeight:"200", marginTop:5}}>Developpeur web</Text>
+    <View style={styles.container}>
+      <SafeAreaView>
+        <FlatList
+          ListHeaderComponent={
+            <Fragment>
+              <Header />
+
+              <SearchInput />
+
+              <NextClass />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginHorizontal: 10,
+                  marginVertical: 10,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>Events</Text>
+                <Text style={{ fontSize: 20 }}>See alls</Text>
               </View>
-            </View>
-            <View style={styles.icon}>
-                <FontAwesomeIcon icon={faBell} size={30} color="#000"/>
-                <View style={styles.badge} />
-            </View>
-          </View>
-         <SearchInput/>
-         <NextClass/>
-          </SafeAreaView>
-      </View>
+            </Fragment>
+          }
+          data={eventList}
+          renderItem={({ item }) => <EventList events={item} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:"white"
+  container: {
+    flex: 1,
+    backgroundColor: "white",
   },
-  header:{
-    flexDirection:"row",
-    alignItems:"center",
-    justifyContent:"space-around"
-  },
-  icon:{
-    position:"relative",
-    borderWidth:1,
-    borderColor:"lightgray",
-    borderRadius:10,
-    padding:5
-  },
-  badge:{
-    position:"absolute",
-    height:10,
-    width:10,
-    top: 9,
-    right: 5, 
-    backgroundColor: 'green',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#fff'
-  },
-
 });
