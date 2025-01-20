@@ -15,6 +15,10 @@ export default function Schedules() {
     { day: "SAT", month: "10" },
   ];
 
+  const courseSchedule = [
+    {"8:00 am":"Basics Mathematics"}
+  ]
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -69,6 +73,8 @@ export default function Schedules() {
               </View>
             ))}
           </View>
+
+
         </View>
       </View>
     </SafeAreaView>
