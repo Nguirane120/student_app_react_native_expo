@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import SearchInput from "./SearchInput";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -21,11 +21,32 @@ const tasks = [
     duration: "50mn",
     completed: "Done",
     color: "#FCF0FE",
-    taskDeatil: {
-      lesson: "Lesson 1",
-      teacher: "Mr Robot",
-      time: "30mn",
-    },
+    taskDeatil:[
+      {
+        id: 1,
+        lesson: "Lesson 1",
+        teacher: "Mr Robot",
+        time: "30mn",
+      },
+      {
+        id: 2,
+        lesson: "Lesson 2",
+        teacher: "Mr Robot",
+        time: "20mn",
+      },
+      {
+        id: 3,
+        lesson: "Lesson 3",
+        teacher: "Mr Robot",
+        time: "30mn",
+      },
+      {
+        id: 4,
+        lesson: "Lesson 4",
+        teacher: "Mr Robot",
+        time: "20mn",
+      }
+    ]
   },
   {
     id: 2,
@@ -104,20 +125,27 @@ const HomeWork = () => {
       </View>
       <View style={{ marginHorizontal: 8 }}>
         {tasks.map((task, idx) => (
-          <View key={idx} style={{ marginBottom: 5 }}>
-            <Link href={{ pathname: "/(tabs)/[id]", params: { id: task.id, task: JSON.stringify(task) } }}>
-              <View style={[styles.tasks, { backgroundColor: task.color }]}>
-                <View style={styles.taskIcon}>
-                  <FontAwesomeIcon icon={task.icon} size={20} />
-                </View>
-                <View style={styles.textContainer}>
-                  <Text style={styles.taskTitle}>{task.title}</Text>
-                  <Text style={{ fontWeight: "200" }}>{task.duration}</Text>
-                </View>
-                <Text style={styles.completed}>{task.completed}</Text>
-              </View>
-            </Link>
-          </View>
+           <Link
+           key={task.id}
+           href={{
+             pathname: "/[id]",
+             params: { id: task.id, task: JSON.stringify(task) },
+           }}
+           asChild
+         >
+           <TouchableOpacity style={{ marginBottom: 5 }}>
+             <View style={[styles.tasks, { backgroundColor: task.color }]}>
+               <View style={styles.taskIcon}>
+                 <FontAwesomeIcon icon={task.icon} size={20} />
+               </View>
+               <View style={styles.textContainer}>
+                 <Text style={styles.taskTitle}>{task.title}</Text>
+                 <Text style={{ fontWeight: "200" }}>{task.duration}</Text>
+               </View>
+               <Text style={styles.completed}>{task.completed}</Text>
+             </View>
+           </TouchableOpacity>
+         </Link>
         ))}
       </View>
     </ScrollView>
